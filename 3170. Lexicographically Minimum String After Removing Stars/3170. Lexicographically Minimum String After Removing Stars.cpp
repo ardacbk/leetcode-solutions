@@ -7,6 +7,9 @@ using namespace std;
 string clearStars(string s) {
     multimap<char, int> letters;
 
+    // Max-heap
+    priority_queue<int> removeLocations;
+
     for (int i = 0; i < s.size(); i++) {
         if (s[i] == '*') {
             s.erase(i, 1);
@@ -24,18 +27,19 @@ string clearStars(string s) {
                 --last;
                 f = last;
             }
-            s.erase(f->second, 1);
-
-            for (auto it = next(f,1); it != letters.end(); it++) {
-                if(f->second < it->second)
-                    it->second--;
-            }
+            removeLocations.push(f->second);
 
             letters.erase(f);
-            i-=2;
+            i--;
         }
         else
             letters.insert({ s[i], i });
+
+    }
+
+    while (!removeLocations.empty()) {
+        s.erase(removeLocations.top(), 1);
+        removeLocations.pop();
     }
     return s;
 }
