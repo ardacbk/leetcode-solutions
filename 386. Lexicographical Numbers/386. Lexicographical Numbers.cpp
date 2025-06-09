@@ -28,7 +28,7 @@ vector<int> lexicalOrder(int n) {
 
 int main()
 {
-    vector<int> order = lexicalOrder(2504);
+    vector<int> order = lexicalOrder(14959);
    
     for (int i : order) {
         cout << i << ' ';
